@@ -14,7 +14,7 @@ void iomanipFloat();
 void readFromFile();
 void readStory();
 void writeToFiles();
-
+void writeToFile2();
 
 void iomanipBool() {
     // it prints 0 or 1
@@ -198,6 +198,22 @@ void writeToFiles() {
 
 }
 
+void writeToFile2() {
+    std::string inputText;
+    std::ofstream outFile("outFile.txt");
+    if (!outFile) {
+        perror("Out file");
+    }
+    else {
+        std::cout << "Enter a text :";
+        std::getline(std::cin, inputText);
+        outFile << inputText << std::endl;
+
+    }
+    outFile.close();
+
+}
+
 int main()
 {
 
@@ -208,6 +224,6 @@ int main()
    // readFromFile();
    // readStory();
 
-    //writeToFiles();
-
+   // writeToFiles();
+     writeToFile2();
 }
