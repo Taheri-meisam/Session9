@@ -200,7 +200,7 @@ void writeToFiles() {
 
 void writeToFile2() {
     std::string inputText;
-    std::ofstream outFile("outFile.txt");
+    std::ofstream outFile("outFile.txt"); // std::ofstream outFile("outFile.txt" , std::ios::app);
     if (!outFile) {
         perror("Out file");
     }
