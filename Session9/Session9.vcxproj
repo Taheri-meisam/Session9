@@ -142,8 +142,11 @@
     <ClCompile Include="Session9.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Myfile2.txt" />
+    <Text Include="newstory.txt" />
     <Text Include="story.txt" />
     <Text Include="story2.txt" />
+    <Text Include="Test2.txt" />
     <Text Include="TestFile.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -15,6 +15,8 @@ void readFromFile();
 void readStory();
 void writeToFiles();
 void writeToFile2();
+// new function copy a binary file 
+void copyFile();
 
 void iomanipBool() {
     // it prints 0 or 1
@@ -31,7 +33,7 @@ void iomanipBool() {
     //  std::cout << std::boolalpha;// true or false
 
     //we can also use method version
-  
+  /**/
     std::cout << std::resetiosflags(std::ios::boolalpha);   // std::cout.setf(std::ios::boolalpha);
     std::cout  << "reset to defualt :" << (10 == 10) << std::endl;
     std::cout << "reset to defualt :" << (10 == 20) <<  std::endl;
@@ -48,7 +50,7 @@ void iomanipIntegers() {
     // printing default 
     std::cout << std::dec << num << std::endl;
     std::cout << std::hex << num << std::endl;
-
+    
     std::cout << std::showbase; // shows the base prefix 
     std::cout << std::dec << num << std::endl;
     std::cout << std::hex << num << std::endl;
@@ -100,9 +102,10 @@ void WidthFillAlighn() {
 
 
 void readFromFile() {
+  
 
-    // to  add a file . write click on resources and add a txt file
-    std::fstream File ("story.txt", std::ios::in);  // std::fstream File {"../story1.txt", std::ios::in};
+    // to  add a file . right click on resources and add a txt file
+    std::fstream File("story.txt", std::ios::in);  // std::fstream File {"../story1.txt", std::ios::in};
    // if file exist and its open
     if (File) {
      //   std::cout << "File exist";
@@ -111,14 +114,16 @@ void readFromFile() {
     }
     else {
         // if file doesn't exist or there was a problem with opening it
-        perror("read from file  ");
+        perror("Bstory.txt  ");
        // std::cout << "File Does not exist exist";
+     
     }
-    
-     //second method 
+  
+  //second method 
 
     std::ifstream File2;
     std::string filename = "story2.txt";
+    int counter = 0;
     // or you can ask use to enter the file name 
     //std::cin >> filename;
 
@@ -136,23 +141,28 @@ void readFromFile() {
     int num = {};
     std::string country;
     char ch{};
+    std::cout << " Num : " << num << "Country : " << country << " char : " << ch << std::endl;
     std::fstream TestFile("TestFile.txt", std::ios::in);  // "C:\\github\\TestFile.txt"
     if (TestFile.is_open()) {
         perror("TestFile exist");
-        TestFile >> num;
-        TestFile >> country;
-        TestFile >> ch;
-
+        while (TestFile >> num >> country >> ch) {
+            
+            // TestFile >> country;
+             //TestFile >> ch;
+            std::cout << " Num : " << num << "Country : " << country << " char : " << ch << std::endl;
+            counter++;
+        }
     }
     else {
         perror("TestFile ");
     }
 
-    std::cout << " Num : " << num << "Country : "<< country << " char : "<< ch << std::endl;
-
+    
+    std::cout << "counter : " << counter << std::endl;
     //closing the files
     File.close();
     File2.close();
+    TestFile.close();
    
 }
 
@@ -187,8 +197,8 @@ void writeToFiles() {
     // std::ios::trunc       truncate is default 
     // std::ios::app  // append on each write 
     // std::ios::ate // you can move or seek the pointer to the location you want 
-
-    MyFile << 100 <<std::endl;
+   
+    MyFile << num <<std::endl;
     MyFile2 << name << std::endl;
     MyFile.put(ch);
     MyFile.close();
@@ -200,7 +210,8 @@ void writeToFiles() {
 
 void writeToFile2() {
     std::string inputText;
-    std::ofstream outFile("outFile.txt"); // std::ofstream outFile("outFile.txt" , std::ios::app);
+    
+    std::ofstream outFile("outFile.ini"); // std::ofstream outFile("outFile.txt" , std::ios::app);
     if (!outFile) {
         perror("Out file");
     }
@@ -214,16 +225,40 @@ void writeToFile2() {
 
 }
 
+void copyFile() {
+    std::string Destination;
+    std::string Origin;
+    std::string temp;
+    char st;
+    std::cout << "Enter Origin file Name and address (use '\\\\' ):";
+    std::cin >> Origin;
+    std::fstream imageFile(Origin, std::ios::in | std::ios::binary);
+    std::cout << "where do you want to copy the file (use '\\\\' ):";
+    std::cin >> Destination;
+    std::fstream CopyImageFile(Destination, std::ios::out | std::ios::binary);
+    if (imageFile && CopyImageFile) {
+        perror("Image File");
+        while (imageFile.get(st)) {
+            CopyImageFile << st;
+        }
+    }
+    else {
+        perror("Image File");
+    }
+
+
+}
 int main()
 {
 
-     iomanipBool();
-   // iomanipIntegers();
+   //  iomanipBool();
+  //  iomanipIntegers();
    // iomanipFloat();
    // WidthFillAlighn();
-   // readFromFile();
-   // readStory();
+    //  readFromFile();
+   //  readStory();
 
-   // writeToFiles();
+     //writeToFiles();
      writeToFile2();
+     copyFile();
 }
