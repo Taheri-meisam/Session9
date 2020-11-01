@@ -17,6 +17,7 @@ void writeToFiles();
 void writeToFile2();
 // new function copy a binary file 
 void copyFile();
+void copyMultipleFiles();
 
 void iomanipBool() {
     // it prints 0 or 1
@@ -248,17 +249,54 @@ void copyFile() {
 
 
 }
+
+
+
+void copyMultipleFiles() {
+         char st;
+         std::string address;
+         int name;
+         std::string extention;
+         std::string combined;
+        std::cout << "enter name of your drive : ";
+        std::cin >> address;
+        address += ":\\\\";
+        std::cout << "enter the extention (jpg, bmp, txt, bin and ...): ";
+        std::cin >> extention;
+        combined = address + std::to_string(name) + '.' + extention;
+        std::cout << combined;
+
+        std::fstream CopyImageFile("E:\\background.jpg", std::ios::in | std::ios::binary);
+        for (int i = 0; i < 10; i++) {
+            combined = address + std::to_string(i) + '.' + extention;
+            std::fstream Destination(combined, std::ios::out | std::ios::binary);
+            if (CopyImageFile && Destination) {
+                while (CopyImageFile.get(st)) {
+                    Destination << st;
+                }
+                CopyImageFile.clear(); //clear eof and fail flags 
+                CopyImageFile.seekg(0, std::ios::beg); // go to beginning of the file 
+                Destination.close();
+            }
+            else {
+                perror("File error");
+            }
+        }
+        CopyImageFile.close();
+    }
+
 int main()
 {
 
-   //  iomanipBool();
-  //  iomanipIntegers();
-   // iomanipFloat();
-   // WidthFillAlighn();
-    //  readFromFile();
-   //  readStory();
+    // iomanipBool();
+    // iomanipIntegers();
+    // iomanipFloat();
+    // WidthFillAlighn();
+    // readFromFile();
+    // readStory();
 
-     //writeToFiles();
-     writeToFile2();
+    // writeToFiles();
+    // writeToFile2();
      copyFile();
+     copyMultipleFiles();
 }
